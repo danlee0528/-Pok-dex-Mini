@@ -4,7 +4,10 @@ import './SearchBar.css';
 const SearchBar = () => {
   return (
     <div>
-        SearchBar
+        <form action = "">
+          <input type = "text" id = "searchBarTextField" placeholder="Search ..."></input>
+          <button type="submit">Search</button>
+        </form>
     </div>
   );
 }
