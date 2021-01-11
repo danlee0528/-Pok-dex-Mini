@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Card.css';
-// import { Radar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 
 const Card = props => {
     const pokemonMonsterApiUrl = `https://pokeapi.co/api/v2/pokemon/${props.pokemon}`
     const [pokemonData, setPokemonData] = useState(null)
     const [pokemonTypeNames, setPokemonTypeNames] = useState(null)
-
     const typeColoursDict = {
       normal: '#A8A77A',
       fire: '#EE8130',
@@ -43,26 +42,55 @@ const Card = props => {
     }, [pokemonMonsterApiUrl])
 
 
+
     return (
-      pokemonData && pokemonTypeNames? 
+      pokemonData && pokemonTypeNames? <div>
         <div className = "card">
           <div className = "cardSprites">
             {pokemonData.sprites.front_default && <img alt="front_default" src={pokemonData.sprites.front_default}/>}
           </div>
 
           <div className = "cardTitle">{pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}</div>
-          
+
+         
           <div className = "cardTypes cardProperties">
                 <span>{pokemonData.types.map((type, index) => <span key = {index} style={{"backgroundColor": `${typeColoursDict[type.type.name]}`}} className = "cardTypeTags">{type.type.name}</span>)}</span>
           </div>
 
-          <div className = "cardStats cardProperties">
+          {/* <div className = "cardStats cardProperties">
                 {pokemonData.stats.map((currentStat,index, arr) => <div key = {index}>{currentStat.stat.name}: {currentStat.base_stat}</div>)}
+          </div> */}
+
+          <div id ="cardChartContainer">
+            <Bar
+              data={
+                {
+                  labels: pokemonData.stats.map(currentStat => currentStat.stat.name),
+                  datasets: [{ 
+                    data: pokemonData.stats.map(currentStat =>currentStat.base_stat),
+                    backgroundColor: `#BCE0EE`,
+                  }],
+              }}
+              options={
+                { 
+                  title:{
+                    display: false,
+                    text: "Stats",
+                    fontSize: 12
+                  },
+                  legend:{
+                    display: false,
+                  },
+                  maintainAspectRatio: false,
+                  responsive: true,
+                  aspectRatio: 1,
+                }
+              }
+            />
           </div>
-        
-          <div className = "cardProperties" >weight: {pokemonData.weight} </div>
-          <div className = "cardProperties" >height: {pokemonData.height} </div>  
-  
+
+          <div className="cardProperties">weight: {pokemonData.weight}</div>
+          <div className="cardProperties">height: {pokemonData.height}</div>
           
           <div className = "cardAbilities cardProperties">
               abilities: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
@@ -70,7 +98,8 @@ const Card = props => {
               :<span key = {index}>{currentAbility.ability.name}, </span>)}
               </span>
           </div> 
-        </div>: null
+      </div>
+    </div>: null
 
 
     // {pokemonData.sprites.back_default && <img alt="back_default" src={pokemonData.sprites.back_default}/>}

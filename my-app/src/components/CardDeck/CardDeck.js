@@ -10,6 +10,9 @@ const CardDeck = () => {
       <Card pokemon={pokemons[0]} />
       <Card pokemon={pokemons[1]} />
       <Card pokemon={pokemons[2]} />
+      <Card pokemon={pokemons[0]} />
+      <Card pokemon={pokemons[1]} />
+      <Card pokemon={pokemons[2]} />
     </div>
   );
 }

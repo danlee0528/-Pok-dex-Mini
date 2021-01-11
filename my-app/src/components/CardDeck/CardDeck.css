@@ -1,6 +1,8 @@
 .cardDeck{
     display: grid;
+    padding: 5%;
     grid-template-columns: repeat(4, 1fr);
+    row-gap: 5%;
     column-gap: 5%;
   }
   
