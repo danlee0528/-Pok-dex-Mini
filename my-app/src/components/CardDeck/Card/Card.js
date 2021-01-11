@@ -8,7 +8,7 @@ const Card = props => {
   const pokemonMonsterUrl = `https://pokeapi.co/api/v2/pokemon/${props.name}`
   const [pokemonData, setPokemonData] = useState(null)
   const [spriteImageUrls, setSpriteImageUrls] = useState([])
-
+  const [viewSprites, setViewSprites] = useState(false);
   const typeColoursDict = {
     normal: '#A8A77A',
     fire: '#EE8130',
@@ -46,6 +46,13 @@ const Card = props => {
   },[pokemonMonsterUrl])
 
 
+  const handleViewSpriteOpenBtn = () => {
+    setViewSprites(true)
+  }
+
+  const handleViewSpriteCloseBtn = () => {
+    setViewSprites(false)
+  }
 
   return (
     pokemonData && <div>
@@ -56,15 +63,9 @@ const Card = props => {
               <span>{pokemonData.types.map((type, index) => <span key = {index} style={{"backgroundColor": `${typeColoursDict[type.type.name]}`}} className = "cardTypeTags">{type.type.name}</span>)}</span>
         </div>
 
-        <div className="cardPokemonImageContainer">
+        <div className="cardImageContainer cardProperties">
           <img id = "cardPokemonImage" alt = "pokemonImage" src={pokemonData.sprites.other["official-artwork"].front_default} />
         </div>
-
-        <div className = "cardSpriteImageContainer">
-            {spriteImageUrls.map(url => {
-              return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
-            })}
-        </div> 
 
         <div id ="cardChartContainer">
           <Bar
@@ -93,13 +94,25 @@ const Card = props => {
             }
           />
         </div>
+        
         <div className="cardProperties">height: {pokemonData.height}, weight: {pokemonData.weight}</div>
+        
         <div className = "cardAbilities cardProperties">
             abilities: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
             index === arr.length-1 ? <span key = {index}>{currentAbility.ability.name}</span>
             :<span key = {index}>{currentAbility.ability.name}, </span>)}
             </span>
-        </div> 
+        </div>
+
+        <button onClick={handleViewSpriteOpenBtn}>View Sprites</button>
+        {viewSprites && spriteImageUrls? <div className="cardSpriteImagesContainer">
+          <div className = "cardProperties">
+              {spriteImageUrls.map(url => {
+                return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
+              })}
+          </div> 
+          <button onClick={handleViewSpriteCloseBtn}>Hide Sprites</button>
+        </div>: null}
     </div>
   </div>
   );

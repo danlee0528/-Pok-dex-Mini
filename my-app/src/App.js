@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import CardDeck from './components/CardDeck/CardDeck'
+import SearchBar from './components/SearchBar/SearchBar'
 
-
-const pokemonRandomMonsterUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`
 
 const App = () => {
+  const pokemonRandomMonsterUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`
   const [pokemonNames, setPokemonNames] = useState([]);
   const [pokemonUrls, setPokemonUrls] = useState([]);
 
@@ -21,15 +21,15 @@ const App = () => {
           names.push(res.results[i].name)
           urls.push(res.results[i].url)
         }
-        // console.log(names,urls)
+
         setPokemonNames(names)
         setPokemonUrls(urls)
       })
-  },[])
+  },[pokemonRandomMonsterUrl])
 
   return(
     <div>
-      {}
+      <SearchBar />
       {pokemonNames && pokemonUrls &&
         <CardDeck
           pokemonNames = {pokemonNames}
