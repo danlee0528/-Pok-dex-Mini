@@ -5,6 +5,19 @@
     padding: 2%;
 }
 
+.cardPokemonImageContainer{
+    width: 100%;
+    height: auto;
+}
+
+.cardPokemonImageContainer > img{
+    max-width: 100%;
+}
+
+.cardSpriteImages{
+    width: 50%;
+}
+
 .cardTitle{
     font-size: 2rem;
 }

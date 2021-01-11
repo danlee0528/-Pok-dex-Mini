@@ -1,20 +1,17 @@
-import React from 'react';
+import React, {}from 'react';
 import Card from './Card/Card';
 import './CardDeck.css';
 
-const CardDeck = () => {
-    const pokemons = ["bulbasaur", "blastoise", "metapod"];
 
-  return (
-    <div className = "cardDeck">
-      <Card pokemon={pokemons[0]} />
-      <Card pokemon={pokemons[1]} />
-      <Card pokemon={pokemons[2]} />
-      <Card pokemon={pokemons[0]} />
-      <Card pokemon={pokemons[1]} />
-      <Card pokemon={pokemons[2]} />
-    </div>
-  );
+// Received an array of pokemon names and urls
+const CardDeck = props => {
+  return <div className="cardDeck">
+          {props.pokemonNames.map(name => {
+            return <Card 
+              key = {name}
+              name = {name}/>
+          })}
+          </div>
 }
 
 export default CardDeck;

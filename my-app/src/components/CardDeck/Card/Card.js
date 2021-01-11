@@ -4,112 +4,105 @@ import { Bar } from 'react-chartjs-2';
 
 
 const Card = props => {
-    const pokemonMonsterApiUrl = `https://pokeapi.co/api/v2/pokemon/${props.pokemon}`
-    const [pokemonData, setPokemonData] = useState(null)
-    const [pokemonTypeNames, setPokemonTypeNames] = useState(null)
-    const typeColoursDict = {
-      normal: '#A8A77A',
-      fire: '#EE8130',
-      water: '#6390F0',
-      electric: '#F7D02C',
-      grass: '#7AC74C',
-      ice: '#96D9D6',
-      fighting: '#C22E28',
-      poison: '#A33EA1',
-      ground: '#E2BF65',
-      flying: '#A98FF3',
-      psychic: '#F95587',
-      bug: '#A6B91A',
-      rock: '#B6A136',
-      ghost: '#735797',
-      dragon: '#6F35FC',
-      dark: '#705746',
-      steel: '#B7B7CE',
-      fairy: '#D685AD',
-    };
+  const NUM_OF_DEFAULT_BASIC_SPRITE_IMAGE_SIZE = 8;
+  const pokemonMonsterUrl = `https://pokeapi.co/api/v2/pokemon/${props.name}`
+  const [pokemonData, setPokemonData] = useState(null)
+  const [spriteImageUrls, setSpriteImageUrls] = useState([])
 
-    useEffect(() => {
-      Promise.all([
-        fetch(pokemonMonsterApiUrl)
-      ]).then(
-        responses => Promise.all(responses.map(response => response.json())) 
-      ).then(
-        results => {
-          setPokemonTypeNames(results[0].types.map(currentIndex => currentIndex.type.name))
-          setPokemonData(results[0])
-        }
-      )
-    }, [pokemonMonsterApiUrl])
+  const typeColoursDict = {
+    normal: '#A8A77A',
+    fire: '#EE8130',
+    water: '#6390F0',
+    electric: '#F7D02C',
+    grass: '#7AC74C',
+    ice: '#96D9D6',
+    fighting: '#C22E28',
+    poison: '#A33EA1',
+    ground: '#E2BF65',
+    flying: '#A98FF3',
+    psychic: '#F95587',
+    bug: '#A6B91A',
+    rock: '#B6A136',
+    ghost: '#735797',
+    dragon: '#6F35FC',
+    dark: '#705746',
+    steel: '#B7B7CE',
+    fairy: '#D685AD',
+  };
+
+  
+  useEffect(()=>{
+    fetch(pokemonMonsterUrl)
+      .catch(err => console.error(err))
+      .then(res => res.json())
+      .then(res => {
+        const spriteUrls = Object.values(res.sprites).slice(0,NUM_OF_DEFAULT_BASIC_SPRITE_IMAGE_SIZE)
+          .map(currentSpriteUrl => currentSpriteUrl)
+          .filter(url => url !== null)
+          .reverse()
+          setSpriteImageUrls(spriteUrls)
+        setPokemonData(res)
+      })
+  },[pokemonMonsterUrl])
 
 
 
-    return (
-      pokemonData && pokemonTypeNames? <div>
-        <div className = "card">
-          <div className = "cardSprites">
-            {pokemonData.sprites.front_default && <img alt="front_default" src={pokemonData.sprites.front_default}/>}
-          </div>
+  return (
+    pokemonData && <div>
+      <div className = "card">
+        <div className = "cardTitle">{pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}</div>
+        
+        <div className = "cardTypes cardProperties">
+              <span>{pokemonData.types.map((type, index) => <span key = {index} style={{"backgroundColor": `${typeColoursDict[type.type.name]}`}} className = "cardTypeTags">{type.type.name}</span>)}</span>
+        </div>
 
-          <div className = "cardTitle">{pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}</div>
+        <div className="cardPokemonImageContainer">
+          <img id = "cardPokemonImage" alt = "pokemonImage" src={pokemonData.sprites.other["official-artwork"].front_default} />
+        </div>
 
-         
-          <div className = "cardTypes cardProperties">
-                <span>{pokemonData.types.map((type, index) => <span key = {index} style={{"backgroundColor": `${typeColoursDict[type.type.name]}`}} className = "cardTypeTags">{type.type.name}</span>)}</span>
-          </div>
+        <div className = "cardSpriteImageContainer">
+            {spriteImageUrls.map(url => {
+              return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
+            })}
+        </div> 
 
-          {/* <div className = "cardStats cardProperties">
-                {pokemonData.stats.map((currentStat,index, arr) => <div key = {index}>{currentStat.stat.name}: {currentStat.base_stat}</div>)}
-          </div> */}
-
-          <div id ="cardChartContainer">
-            <Bar
-              data={
-                {
-                  labels: pokemonData.stats.map(currentStat => currentStat.stat.name),
-                  datasets: [{ 
-                    data: pokemonData.stats.map(currentStat =>currentStat.base_stat),
-                    backgroundColor: `#BCE0EE`,
-                  }],
-              }}
-              options={
-                { 
-                  title:{
-                    display: false,
-                    text: "Stats",
-                    fontSize: 12
-                  },
-                  legend:{
-                    display: false,
-                  },
-                  maintainAspectRatio: false,
-                  responsive: true,
-                  aspectRatio: 1,
-                }
+        <div id ="cardChartContainer">
+          <Bar
+            data={
+              {
+                labels: pokemonData.stats.map(currentStat => currentStat.stat.name),
+                datasets: [{ 
+                  data: pokemonData.stats.map(currentStat =>currentStat.base_stat),
+                  backgroundColor: `#BCE0EE`,
+                }],
+            }}
+            options={
+              { 
+                title:{
+                  display: false,
+                  text: "Stats",
+                  fontSize: 12
+                },
+                legend:{
+                  display: false,
+                },
+                maintainAspectRatio: false,
+                responsive: true,
+                aspectRatio: 1,
               }
-            />
-          </div>
-
-          <div className="cardProperties">weight: {pokemonData.weight}</div>
-          <div className="cardProperties">height: {pokemonData.height}</div>
-          
-          <div className = "cardAbilities cardProperties">
-              abilities: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
-              index === arr.length-1 ? <span key = {index}>{currentAbility.ability.name}</span>
-              :<span key = {index}>{currentAbility.ability.name}, </span>)}
-              </span>
-          </div> 
-      </div>
-    </div>: null
-
-
-    // {pokemonData.sprites.back_default && <img alt="back_default" src={pokemonData.sprites.back_default}/>}
-    // {pokemonData.sprites.front_female && <img alt="front_female" src={pokemonData.sprites.front_female}/>}
-    // {pokemonData.sprites.back_female && <img alt="back_female" src={pokemonData.sprites.back_female }/>}
-    // {pokemonData.sprites.front_shiny && <img alt="front_shiny" src={pokemonData.sprites.front_shiny}/>}
-    // {pokemonData.sprites.back_shiny && <img alt="back_shiny" src={pokemonData.sprites.back_shiny}/>}
-    // {pokemonData.sprites.front_shiny_female && <img alt="front_shiny_female" src={pokemonData.sprites.front_shiny_female}/>}
-    // {pokemonData.sprites.back_shiny_female && <img alt="back_shiny_female" src={pokemonData.sprites.back_shiny_female}/>}
-    );
+            }
+          />
+        </div>
+        <div className="cardProperties">height: {pokemonData.height}, weight: {pokemonData.weight}</div>
+        <div className = "cardAbilities cardProperties">
+            abilities: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
+            index === arr.length-1 ? <span key = {index}>{currentAbility.ability.name}</span>
+            :<span key = {index}>{currentAbility.ability.name}, </span>)}
+            </span>
+        </div> 
+    </div>
+  </div>
+  );
 };
 
 export default Card;
