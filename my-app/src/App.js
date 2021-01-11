@@ -8,6 +8,11 @@ const App = () => {
   const pokemonRandomMonsterUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`
   const [pokemonNames, setPokemonNames] = useState([]);
   const [pokemonUrls, setPokemonUrls] = useState([]);
+  const [pokemonToSearch, setPokemonToSearch] = useState("");
+
+  const pokemonToSearchUrl = (pokemonName) => {
+    return [`https://pokeapi.co/api/v2/pokemon/${pokemonName}`]
+  };
 
   useEffect(()=>{
     fetch(pokemonRandomMonsterUrl)
@@ -29,13 +34,18 @@ const App = () => {
 
   return(
     <div>
-      <SearchBar />
-      {pokemonNames && pokemonUrls &&
-        <CardDeck
-          pokemonNames = {pokemonNames}
-          pokemonUrls = {pokemonUrls}
-        />
+      <SearchBar 
+        pokemonToSearch = {pokemonToSearch}
+        setPokemonToSearch = {setPokemonToSearch}
+      />
+      {pokemonToSearch ? <CardDeck pokemonNames = {[pokemonToSearch]} pokemonUrls = {pokemonToSearchUrl}/> 
+        : pokemonNames && pokemonUrls &&
+          <CardDeck
+            pokemonNames = {pokemonNames}
+            pokemonUrls = {pokemonUrls}
+          />
       }
+
     </div>
   );
 }

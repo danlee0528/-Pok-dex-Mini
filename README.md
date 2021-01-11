@@ -11,7 +11,10 @@
 - [x] Match the pokemon type with the style of the card: red/green, etc.
 - [x] Style the pokemon stats
 - [x] Show/click through all the spirtes of each pokemon, instead of just showing one
-- [] Display a few random pokemon upon loading before the user searches anything
+- [x] Display a few random pokemon upon loading before the user searches anything
 - [] Implement auto-complete options for possible pokemon matches as the user types their query
 - [x] Use git to keep track of your progress with good commit messages throughout development
 
+# Possible Improvments
+- For API testing purposes, consider having a default image for 404 error.
+    - React prototypes can set default images for any network error

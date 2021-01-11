@@ -46,12 +46,8 @@ const Card = props => {
   },[pokemonMonsterUrl])
 
 
-  const handleViewSpriteOpenBtn = () => {
-    setViewSprites(true)
-  }
-
-  const handleViewSpriteCloseBtn = () => {
-    setViewSprites(false)
+  const handleViewSpriteBtn = () => {
+    setViewSprites(!viewSprites)
   }
 
   return (
@@ -104,15 +100,13 @@ const Card = props => {
             </span>
         </div>
 
-        <button onClick={handleViewSpriteOpenBtn}>View Sprites</button>
-        {viewSprites && spriteImageUrls? <div className="cardSpriteImagesContainer">
-          <div className = "cardProperties">
+        <button onClick={handleViewSpriteBtn}>View/Hide Sprites</button>
+        {viewSprites && spriteImageUrls? 
+          <div className = "cardSpriteImagesContainer cardProperties">
               {spriteImageUrls.map(url => {
                 return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
               })}
-          </div> 
-          <button onClick={handleViewSpriteCloseBtn}>Hide Sprites</button>
-        </div>: null}
+          </div>: null}
     </div>
   </div>
   );

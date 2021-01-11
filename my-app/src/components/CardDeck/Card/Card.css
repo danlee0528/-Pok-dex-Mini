@@ -3,7 +3,20 @@
     align-items: center;
     flex-direction: column;
     border: 2px solid rgb(219, 219, 219);
-    padding: 5%;
+    padding: 10%;
+}
+
+.card Button{
+    margin-top: 4%;
+    background-color: white;
+    color: black;
+    padding: 2%;
+    border: 2px solid rgb(219, 219, 219); /* Green */
+}
+
+.card Button:hover{
+    background-color: rgb(228, 228, 228);
+    color: black;
 }
 
 .cardImageContainer{
@@ -13,7 +26,12 @@
 }
 
 .cardSpriteImagesContainer{
-    text-align: center;
+    margin-top: 10%;
+}
+
+.cardSpriteImages{
+    background-color: rgb(245, 245, 245);
+    height: auto;
 }
 
 .cardImageContainer > img{
@@ -55,7 +73,5 @@
 }
 
 .cardChartContainer{
-    padding-top: 2%;
-    padding-bottom: 2%;
-    max-width: inherit;
+    max-width: 90%;
 }
