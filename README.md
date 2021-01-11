@@ -8,14 +8,10 @@
 - [] Stage the app on a live url
 
 # Features
-- [] Match the pokemon type with the style of the card: red/green, etc.
+- [x] Match the pokemon type with the style of the card: red/green, etc.
 - [] Style the pokemon stats
 - [x] Show/click through all the spirtes of each pokemon, instead of just showing one
 - [] Display a few random pokemon upon loading before the user searches anything
 - [] Implement auto-complete options for possible pokemon matches as the user types their query
 - [x] Use git to keep track of your progress with good commit messages throughout development
 
-
-# Case Studies
-1. Having setState hook inside fetch returns the same data object twice. 
-2. Promise.all() for fetching all types of a pokemon

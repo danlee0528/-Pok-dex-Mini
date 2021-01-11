@@ -6,7 +6,7 @@ const CardDeck = () => {
     const pokemons = ["bulbasaur", "blastoise", "metapod"];
 
   return (
-    <div>
+    <div className = "cardDeck">
       <Card pokemon={pokemons[0]} />
       <Card pokemon={pokemons[1]} />
       <Card pokemon={pokemons[2]} />
