@@ -9,6 +9,7 @@ const App = () => {
   const [pokemonNames, setPokemonNames] = useState([]);
   const [pokemonUrls, setPokemonUrls] = useState([]);
   const [pokemonToSearch, setPokemonToSearch] = useState("");
+  const [searchBarResetClicked, setsSearchBarResetClicked] = useState(false);
 
   const pokemonToSearchUrl = (pokemonName) => {
     return [`https://pokeapi.co/api/v2/pokemon/${pokemonName}`]
@@ -34,10 +35,12 @@ const App = () => {
   return(
     <div>
         <SearchBar 
+          pokemonNames = {pokemonNames}
           pokemonToSearch = {pokemonToSearch}
           setPokemonToSearch = {setPokemonToSearch}
+          setsSearchBarResetClicked = {setsSearchBarResetClicked}
         />
-        {pokemonToSearch ? <CardDeck pokemonNames = {[pokemonToSearch]} pokemonUrls = {pokemonToSearchUrl}/> 
+        {pokemonToSearch ? <CardDeck pokemonNames = {pokemonToSearch} pokemonUrls = {pokemonToSearchUrl}/> 
           : pokemonNames && pokemonUrls &&
             <CardDeck
               pokemonNames = {pokemonNames}

@@ -33,55 +33,68 @@ const SearchBar = (props) => {
     })()
   },[pokemonApiUrl])
 
-  // lift state (a single pokemon name) up to App component
+
   const handleSearchBarSubmit = (event) => {
     event.preventDefault()
-    props.setPokemonToSearch(userPokemonNameToSearch.toLowerCase())
+    props.setPokemonToSearch(userPokemonNameToSearch)
+  }
+
+  const hanldSearchBarReset = (event) => {
+    event.preventDefault()
+    props.setsSearchBarResetClicked(true)
+    props.setPokemonToSearch(props.pokemonNames)
+    setUserPokemonNameToSearch("")
   }
 
   const handleTextFieldChange = (e) => {
     let userPokemonName = e.target.value
-    // console.log(userPokemonName)
     setUserPokemonNameToSearch(userPokemonName)
     const matchingPokemons = exsitingPokemonNames.filter(name =>  name.substring(0,userPokemonName.length) === userPokemonName)
-    // console.log(matchingPokemons)
     setPokemonNameOptions(matchingPokemons)
   }
 
   const handlePokemonOptionClick = (e) => {
-    console.log(`Set Search Bar Value to ${e.target.value}`)
-    setUserPokemonNameToSearch(e.target.value)
+    let name = e.target.value
+    // console.log(`Set Search Bar Value to ${name}`)
+    const pokemonNames = pokemonNameOptions.filter(option => option.slice(0, name.length) === name)
+    setPokemonNameOptions(pokemonNames)
+    setUserPokemonNameToSearch(pokemonNames)
     setPokemonNameOptionClicked(!pokemonNameOptionClicked)
   }
 
 
-  return (
-    pokemonCount && exsitingPokemonNames && <div className="seaerchBarCotnainer">
-        <form className="autocomplete" onSubmit = {handleSearchBarSubmit}>
-            <input 
-              type = "text" 
-              id = "searchBarTextField" 
-              placeholder="Enter a pokemon name or id..." 
-              onChange={handleTextFieldChange}
-              value={userPokemonNameToSearch}
-            />
-            <div className="pokemonNameOptionsContainer">
-              {pokemonNameOptions && !pokemonNameOptionClicked? 
-                pokemonNameOptions.map(name => {
-                  return <option 
-                            onClick={handlePokemonOptionClick} 
-                            className="pokemonNameOptions" 
-                            key={name} 
-                            value={name}>
-                              {name}
-                          </option>
-                })
-                : null
-              }
-            </div>
-
-          <button type="submit">Search</button>
+return (
+  pokemonCount && exsitingPokemonNames && 
+    <div className="searchBarContainer">
+      <div className="searchBarTextFieldContainer">
+        <form>
+              <input 
+                type = "text" 
+                id = "searchBarTextField" 
+                placeholder="Enter a pokemon name or id..." 
+                onChange={handleTextFieldChange}
+                value={userPokemonNameToSearch}
+              />
+              <div className="pokemonNameOptionsContainer">
+                {pokemonNameOptions && !pokemonNameOptionClicked? 
+                  pokemonNameOptions.map(name => {
+                    return <option 
+                              onClick={handlePokemonOptionClick} 
+                              className="pokemonNameOptions" 
+                              key={name} 
+                              value={name}>
+                                {name}
+                            </option>
+                  })
+                  : null
+                }
+              </div>
         </form>
+      </div>
+      <div className="searchBarBtnContainer">
+        <button type="submit" onClick = {handleSearchBarSubmit}>Search</button>
+        <button type="submit" onClick = {hanldSearchBarReset}>Refresh</button>
+      </div>
     </div>
   );
 }
