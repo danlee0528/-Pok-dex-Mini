@@ -65,6 +65,13 @@ const Card = props => {
           <img id = "cardPokemonImage" alt = "pokemonImage" src={pokemonData.sprites.other["official-artwork"].front_default} />
         </div>
 
+        <div className = "cardAbilities cardProperties">
+            skills: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
+            index === arr.length-1 ? <span key = {index}>{currentAbility.ability.name}</span>
+            :<span key = {index}>{currentAbility.ability.name}, </span>)}
+            </span>
+        </div>
+
         <div id ="cardChartContainer">
           <Radar
             data={
@@ -93,13 +100,6 @@ const Card = props => {
           />
         </div>
         
-        <div className = "cardAbilities cardProperties">
-            skills: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
-            index === arr.length-1 ? <span key = {index}>{currentAbility.ability.name}</span>
-            :<span key = {index}>{currentAbility.ability.name}, </span>)}
-            </span>
-        </div>
-
         <button onClick={handleViewSpriteBtn}>View/Hide Sprites</button>
         {
           viewSprites && spriteImageUrls? 

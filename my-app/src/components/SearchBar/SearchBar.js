@@ -70,12 +70,11 @@ const SearchBar = (props) => {
 return (
   pokemonCount && exsitingPokemonNames && 
     <div className="searchBarContainer">
-      <div className="searchBarTextFieldContainer">
-        <form>
+        <form id="searchBarForm">
               <input 
                 type = "text" 
                 id = "searchBarTextField" 
-                placeholder="Enter a pokemon name or id..." 
+                placeholder="Enter a pokemon name to search ..." 
                 onChange={handleTextFieldChange}
                 value={userPokemonNameToSearch}
               />
@@ -93,12 +92,11 @@ return (
                   : null
                 }
               </div>
+          <div className="searchBarBtnContainer">
+            <input type="submit" onClick = {handleSearchBarSubmit} value="Search"/>
+            <input type="submit" onClick = {hanldSearchBarReset} value="Reset"/>
+          </div>
         </form>
-      </div>
-      <div className="searchBarBtnContainer">
-        <button type="submit" onClick = {handleSearchBarSubmit}>Search</button>
-        <button type="submit" onClick = {hanldSearchBarReset}>Refresh</button>
-      </div>
     </div>
   );
 }

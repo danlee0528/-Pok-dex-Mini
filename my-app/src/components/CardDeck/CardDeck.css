@@ -1,7 +1,7 @@
 .cardDeck{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    /* padding: 5%; */
+    padding: 5%;
 }
   
 /* Extra small devices (phones, 600px and down) */
