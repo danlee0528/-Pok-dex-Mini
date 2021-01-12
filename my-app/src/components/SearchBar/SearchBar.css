@@ -40,8 +40,11 @@
     background-color: rgb(184, 184, 184);
 }
 
-.pokemonNameOptions:hover{
+.pokemonNameOptions{
     display: block;
+}
+
+.pokemonNameOptions:hover{
     cursor:pointer;
     background-color: lightcoral;
 }

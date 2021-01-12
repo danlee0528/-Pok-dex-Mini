@@ -4,16 +4,23 @@ import axios from 'axios';
 
 
 const SearchBar = (props) => {
-  const [pokemonNameUserSearched, setPokemonNameUserSearched] = useState("")
-  const [pokemonCount, setPokemonCount] = useState(null)
   const [exsitingPokemonNames, setExistingPokemonNames] = useState(null)
+  const [pokemonNameFromTextField, setPokemonNameFromTextField] = useState("")
+  const [pokemonCount, setPokemonCount] = useState(null)
   const [pokemonNameOptions, setPokemonNameOptions] = useState(null)
-  const [pokemonNameOptionClicked, setPokemonNameOptionClicked] = useState(false)
+  const [pokemonNameOptionOpened, setPokemonNameOptionOpened] = useState(false)
 
   const pokemonApiUrl = `https://pokeapi.co/api/v2/pokemon`
-  const pokemonNamesUrlWithCount = (count) =>{
-    return "https://pokeapi.co/api/v2/pokemon?limit=" + count;
+  const pokemonNamesUrlWithCount = (count) => { 
+    return "https://pokeapi.co/api/v2/pokemon?limit=" + count 
   } 
+  const foundMatchingPokemonFromDB = (pokemonName) =>{ 
+    return exsitingPokemonNames.includes(pokemonName.toLowerCase()) 
+  }
+
+  const getMatchingOptionsByLengthAndName = (length, pokemonName) => {
+    return exsitingPokemonNames.filter(name => name.slice(0,length) === pokemonName.toLowerCase())
+  }
 
   useEffect(()=>{
     (async() => {
@@ -33,44 +40,54 @@ const SearchBar = (props) => {
     })()
   },[pokemonApiUrl])
 
-
+  // DONE
   const handleSearchBarSubmit = (event) => {
     event.preventDefault()
-    props.setPokemonToSearch(pokemonNameUserSearched)
-    props.setPokemonDataFromSearchReady(true)
+    let pokemonName = "";
+
+    // Handle edge cases such as rattata vs rattata-alola being fetched together with rattata
+    if (foundMatchingPokemonFromDB(pokemonNameFromTextField)){
+      pokemonName = JSON.parse(JSON.stringify(pokemonNameFromTextField))      
+      setPokemonNameFromTextField(pokemonName)
+      props.setPokemonNameToSearch(pokemonName)
+      props.setPokemonNameToSearchFound(true)
+    }else{
+      props.setPokemonNameToSearch("")
+      props.setPokemonNameToSearchFound(false)
+    }
+
+    setPokemonNameOptionOpened(true) //hide options
   }
 
-  const hanldSearchBarReset = (event) => {
+  const handleSearchBarReset = (event) => {
     event.preventDefault()
-    setPokemonNameUserSearched("")
-    setPokemonNameOptionClicked(false) // reactivate auto-complete options
-    setPokemonNameOptions([])
-    props.setPokemonToSearch(props.pokemonNames)
-    props.setPokemonDataFromSearchReady(false)
+    setPokemonNameFromTextField("")
+    setPokemonNameOptionOpened(true) //reinitialize
+    props.setPokemonNameToSearch(props.pokemonNames)
+    props.setPokemonNameToSearchFound(true) 
   }
 
   const handleTextFieldChange = (e) => {
-    let userPokemonName = e.target.value
-    console.log(userPokemonName)
-    
-    if (userPokemonName === ""){
-      setPokemonNameOptionClicked(false)
-      setPokemonNameOptions([])
+    let input = e.target.value
+    let userPokemonNames = getMatchingOptionsByLengthAndName(input.length, input)
+
+    setPokemonNameFromTextField(input.toLowerCase())
+
+    if (input.length > 0){
+      setPokemonNameOptions(userPokemonNames)
+      setPokemonNameOptionOpened(false)
+    }else{
+      setPokemonNameOptionOpened(true)
     }
-
-    setPokemonNameUserSearched(userPokemonName.toLowerCase())
-    const matchingPokemons = exsitingPokemonNames.filter(name =>  name.substring(0,userPokemonName.length) === userPokemonName.toLowerCase())
-
-    // show options when user enters at least 1 character
-    if (matchingPokemons.length > 0) setPokemonNameOptions(matchingPokemons)
   }
 
+
+  // Options only show pokemon names in the database in the first place, just return the selected option (string)
   const handlePokemonOptionClick = (e) => {
-    let name = e.target.value
-    const pokemonNames = pokemonNameOptions.filter(option => option.slice(0, name.length) === name.toLowerCase())
-    setPokemonNameOptions(pokemonNames)
-    setPokemonNameUserSearched(pokemonNames)
-    setPokemonNameOptionClicked(!pokemonNameOptionClicked)
+    let userPokemonName = e.target.value
+    setPokemonNameFromTextField(userPokemonName)
+    setPokemonNameOptions(userPokemonName)
+    setPokemonNameOptionOpened(true)
   }
 
 
@@ -83,10 +100,10 @@ return (
                 id = "searchBarTextField" 
                 placeholder="Enter a pokemon name to search ..." 
                 onChange={handleTextFieldChange}
-                value={pokemonNameUserSearched}
+                value={pokemonNameFromTextField}
               />
               <div className="pokemonNameOptionsContainer">
-                {pokemonNameOptions && !pokemonNameOptionClicked ? 
+                {pokemonNameOptions && !pokemonNameOptionOpened ? 
                   pokemonNameOptions.map(name => {
                     return <option 
                               onClick={handlePokemonOptionClick} 
@@ -101,15 +118,11 @@ return (
               </div>
           <div className="searchBarBtnContainer">
             <input type="submit" onClick = {handleSearchBarSubmit} value="Search"/>
-            <input type="submit" onClick = {hanldSearchBarReset} value="Reset"/>
+            <input type="submit" onClick = {handleSearchBarReset} value="Reset"/>
           </div>
         </form>
     </div>
   );
 }
-
-
-
-
 
 export default SearchBar;

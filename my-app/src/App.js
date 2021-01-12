@@ -3,15 +3,14 @@ import './App.css';
 import CardDeck from './components/CardDeck/CardDeck'
 import SearchBar from './components/SearchBar/SearchBar'
 import axios from 'axios';
-import ErrorPage from './components/ErrorPage/ErrorPage';
+
 
 const App = () => {
   const pokemonRandomMonsterUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`
-  const [pokemonNames, setPokemonNames] = useState([]);
-  const [pokemonToSearch, setPokemonToSearch] = useState("");
-  const [pokemonDataFromSearchReady, setPokemonDataFromSearchReady] = useState(false);
-  const STRING_TYPE = "string"
-
+  const [pokemonNames, setPokemonNames] = useState(null);
+  const [pokemonNameToSearch, setPokemonNameToSearch] = useState(null);
+  const [pokemonNameToSearchFound, setPokemonNameToSearchFound] = useState(true);
+  
   useEffect(()=>{
     axios(pokemonRandomMonsterUrl)
       .catch(err => console.err(err))
@@ -32,28 +31,16 @@ const App = () => {
     <div>
         <SearchBar 
           pokemonNames = {pokemonNames}
-          pokemonToSearch = {pokemonToSearch}
-          setPokemonToSearch = {setPokemonToSearch}
-          setPokemonDataFromSearchReady = {setPokemonDataFromSearchReady}
+          setPokemonNameToSearch = {setPokemonNameToSearch}
+          setPokemonNameToSearchFound = {setPokemonNameToSearchFound}
         />
-
-        {/* Show Default Pokemons */}
-        {!pokemonDataFromSearchReady && <CardDeck pokemonNames = {pokemonNames}/> } 
-
-        {/* 
-          If the user clicks submit button ofthe SearchBar without selecting an option, a string is returned 
-          Result can any string. Thus, check if the pokemon name string exists in the database before passing state down 
-        */}
-        {pokemonDataFromSearchReady && typeof pokemonToSearch === STRING_TYPE && 
-          pokemonNames.includes(pokemonToSearch) && <CardDeck pokemonNames = {[pokemonToSearch]}/>}  
-        
-        {/* If the user clicks reset button of the SearchBar or select an option, an object is returend */}
-        {pokemonDataFromSearchReady && typeof pokemonToSearch !== STRING_TYPE && <CardDeck pokemonNames = {pokemonToSearch}/>}
-
-        {/* If the user looks for non existential pokemon */}
-        {pokemonDataFromSearchReady && typeof pokemonToSearch === STRING_TYPE && 
-          !pokemonNames.includes(pokemonToSearch) && <ErrorPage/>}  
-        
+        {
+          pokemonNames ?
+            pokemonNameToSearch && (typeof pokemonNameToSearch === "string" ||  typeof pokemonNameToSearch === "object" )?
+            <CardDeck pokemonNames = {pokemonNameToSearch} pokemonNamesExisting ={pokemonNames} pokemonNameToSearchFound = {pokemonNameToSearchFound}/>
+            :<CardDeck pokemonNames = {pokemonNames} pokemonNamesExisting ={pokemonNames} pokemonNameToSearchFound = {pokemonNameToSearchFound}/> 
+          :null
+        }
     </div>
   );
 }
