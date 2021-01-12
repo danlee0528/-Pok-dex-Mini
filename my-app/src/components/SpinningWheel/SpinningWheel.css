@@ -1,0 +1,27 @@
+.spinningWheelContainer{
+    width: 100%;
+    /* border: 1px solid red; */
+    text-align: center;
+}
+
+.spinningWheel{
+    border: 15px solid #f3f3f3;
+    border-top: 15px solid rgb(31, 203, 226);
+    width: 50px;
+    margin-left: 25%;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

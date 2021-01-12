@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import CardDeck from './components/CardDeck/CardDeck'
 import SearchBar from './components/SearchBar/SearchBar'
-
+import axios from 'axios';
 
 const App = () => {
   const pokemonRandomMonsterUrl = `https://pokeapi.co/api/v2/pokemon?limit=20`
@@ -15,16 +15,15 @@ const App = () => {
   };
 
   useEffect(()=>{
-    fetch(pokemonRandomMonsterUrl)
+    axios(pokemonRandomMonsterUrl)
       .catch(err => console.err(err))
-      .then(res => res.json())
       .then(res => {  
         let names = [];
         let urls = [];
 
-        for(let i=0; i< res.results.length; ++i){
-          names.push(res.results[i].name)
-          urls.push(res.results[i].url)
+        for(let i=0; i< res.data.results.length; ++i){
+          names.push(res.data.results[i].name)
+          urls.push(res.data.results[i].url)
         }
 
         setPokemonNames(names)
@@ -34,18 +33,17 @@ const App = () => {
 
   return(
     <div>
-      <SearchBar 
-        pokemonToSearch = {pokemonToSearch}
-        setPokemonToSearch = {setPokemonToSearch}
-      />
-      {pokemonToSearch ? <CardDeck pokemonNames = {[pokemonToSearch]} pokemonUrls = {pokemonToSearchUrl}/> 
-        : pokemonNames && pokemonUrls &&
-          <CardDeck
-            pokemonNames = {pokemonNames}
-            pokemonUrls = {pokemonUrls}
-          />
-      }
-
+        <SearchBar 
+          pokemonToSearch = {pokemonToSearch}
+          setPokemonToSearch = {setPokemonToSearch}
+        />
+        {pokemonToSearch ? <CardDeck pokemonNames = {[pokemonToSearch]} pokemonUrls = {pokemonToSearchUrl}/> 
+          : pokemonNames && pokemonUrls &&
+            <CardDeck
+              pokemonNames = {pokemonNames}
+              pokemonUrls = {pokemonUrls}
+            />
+        }
     </div>
   );
 }

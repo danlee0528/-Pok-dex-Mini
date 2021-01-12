@@ -30,13 +30,13 @@
 }
 
 .cardSpriteImages{
-    background-color: rgb(245, 245, 245);
+    /* background-color: rgb(245, 245, 245); */
     height: auto;
 }
 
 .cardImageContainer > img{
     max-width: inherit;
-    background-color: rgb(245, 245, 245);
+    /* background-color: rgb(245, 245, 245); */
     height: auto;
 }
 

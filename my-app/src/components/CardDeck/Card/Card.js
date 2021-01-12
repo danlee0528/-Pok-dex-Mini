@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import './Card.css';
 import { Bar } from 'react-chartjs-2';
+import SpinningWheel from '../../SpinningWheel/SpinningWheel';
 
 
 const Card = props => {
@@ -32,26 +34,26 @@ const Card = props => {
 
   
   useEffect(()=>{
-    fetch(pokemonMonsterUrl)
-      .catch(err => console.error(err))
-      .then(res => res.json())
+    axios(pokemonMonsterUrl)
+      .catch(err => {
+        console.error(err)
+      })
       .then(res => {
-        const spriteUrls = Object.values(res.sprites).slice(0,NUM_OF_DEFAULT_BASIC_SPRITE_IMAGE_SIZE)
+        const spriteUrls = Object.values(res.data.sprites).slice(0,NUM_OF_DEFAULT_BASIC_SPRITE_IMAGE_SIZE)
           .map(currentSpriteUrl => currentSpriteUrl)
           .filter(url => url !== null)
           .reverse()
           setSpriteImageUrls(spriteUrls)
-        setPokemonData(res)
+          setPokemonData(res.data)
       })
   },[pokemonMonsterUrl])
-
 
   const handleViewSpriteBtn = () => {
     setViewSprites(!viewSprites)
   }
 
   return (
-    pokemonData && <div>
+    pokemonData ? <div>
       <div className = "card">
         <div className = "cardTitle">{pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1)}</div>
         
@@ -94,21 +96,25 @@ const Card = props => {
         <div className="cardProperties">height: {pokemonData.height}, weight: {pokemonData.weight}</div>
         
         <div className = "cardAbilities cardProperties">
-            abilities: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
+            skills: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
             index === arr.length-1 ? <span key = {index}>{currentAbility.ability.name}</span>
             :<span key = {index}>{currentAbility.ability.name}, </span>)}
             </span>
         </div>
 
         <button onClick={handleViewSpriteBtn}>View/Hide Sprites</button>
-        {viewSprites && spriteImageUrls? 
-          <div className = "cardSpriteImagesContainer cardProperties">
-              {spriteImageUrls.map(url => {
-                return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
-              })}
-          </div>: null}
+        {
+          viewSprites && spriteImageUrls? 
+            <div className = "cardSpriteImagesContainer cardProperties">
+                {spriteImageUrls.map(url => {
+                  return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
+                })}
+            </div>
+          :null
+        }
+      </div>
     </div>
-  </div>
+    : <SpinningWheel />
   );
 };
 
