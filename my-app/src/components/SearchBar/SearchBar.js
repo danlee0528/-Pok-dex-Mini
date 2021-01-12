@@ -9,6 +9,7 @@ const SearchBar = (props) => {
   const [exsitingPokemonNames, setExistingPokemonNames] = useState(null)
   const [pokemonNameOptions, setPokemonNameOptions] = useState(null)
   const [pokemonNameOptionClicked, setPokemonNameOptionClicked] = useState(false)
+  const [pokemonSearchBarResetClicked, setpokemonSearchBarResetClicked] = useState(true)
 
   const pokemonApiUrl = `https://pokeapi.co/api/v2/pokemon`
   const pokemonNamesUrlWithCount = (count) =>{
@@ -41,13 +42,17 @@ const SearchBar = (props) => {
 
   const hanldSearchBarReset = (event) => {
     event.preventDefault()
-    props.setsSearchBarResetClicked(true)
-    props.setPokemonToSearch(props.pokemonNames)
     setUserPokemonNameToSearch("")
+    setPokemonNameOptionClicked(false) // reactivate auto-complete options
+    setPokemonNameOptions([])
+    props.setPokemonToSearch(props.pokemonNames)
   }
 
   const handleTextFieldChange = (e) => {
     let userPokemonName = e.target.value
+    if (e.target.value === ""){
+      setPokemonNameOptionClicked(false)
+    }
     setUserPokemonNameToSearch(userPokemonName)
     const matchingPokemons = exsitingPokemonNames.filter(name =>  name.substring(0,userPokemonName.length) === userPokemonName)
     setPokemonNameOptions(matchingPokemons)
@@ -76,7 +81,7 @@ return (
                 value={userPokemonNameToSearch}
               />
               <div className="pokemonNameOptionsContainer">
-                {pokemonNameOptions && !pokemonNameOptionClicked? 
+                {pokemonNameOptions && !pokemonNameOptionClicked ? 
                   pokemonNameOptions.map(name => {
                     return <option 
                               onClick={handlePokemonOptionClick} 

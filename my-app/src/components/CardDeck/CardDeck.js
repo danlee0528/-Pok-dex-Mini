@@ -5,7 +5,7 @@ import './CardDeck.css';
 
 // Received an array of pokemon names and urls
 const CardDeck = props => {
-    console.log(props.pokemonNames)
+    // console.log(props.pokemonNames)
     return (
       <div className="cardDeck">
           {
