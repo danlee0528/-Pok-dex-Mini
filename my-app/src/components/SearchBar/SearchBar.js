@@ -9,7 +9,6 @@ const SearchBar = (props) => {
   const [exsitingPokemonNames, setExistingPokemonNames] = useState(null)
   const [pokemonNameOptions, setPokemonNameOptions] = useState(null)
   const [pokemonNameOptionClicked, setPokemonNameOptionClicked] = useState(false)
-  const [pokemonSearchBarResetClicked, setpokemonSearchBarResetClicked] = useState(true)
 
   const pokemonApiUrl = `https://pokeapi.co/api/v2/pokemon`
   const pokemonNamesUrlWithCount = (count) =>{

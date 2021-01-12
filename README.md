@@ -10,7 +10,7 @@
 - [x] The user should be able to search for a pokemon and get a "card" filled with info about that pokemon: name, height, weight, types, abilities and base stats (hp/atk/def/special-atk/special-def/speed)
 - [x] The card should have at least one picture/sprite of the pokemon
 - [] Stage the app on a live url
-- [] Responsive Design
+- [x] Responsive Design
 
 ## Features
 - [x] Match the pokemon type with the style of the card: red/green, etc.
@@ -30,3 +30,4 @@
 - If the project is expected to grow, consider using Redux store to improve performance
     - Pokemon API contains endpoints whose data are nested that may need additional querying to other endpoints to retrieve information in need
 - Card component can be futher organized with micro components if needed
+- To increase accessibility, convert text units to rem

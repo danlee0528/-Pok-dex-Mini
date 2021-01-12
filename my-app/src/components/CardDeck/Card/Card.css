@@ -48,6 +48,9 @@
     font-size: 2rem;
 }
 
+.cardAbilities{
+    text-align: left;
+}
 .cardTypes{
     display: grid;
     grid-template-columns: auto;

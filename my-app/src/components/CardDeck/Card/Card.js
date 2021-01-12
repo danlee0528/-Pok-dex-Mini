@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Card.css';
-import { Bar } from 'react-chartjs-2';
+import {Radar} from 'react-chartjs-2';
 import SpinningWheel from '../../SpinningWheel/SpinningWheel';
 
 
@@ -66,13 +66,13 @@ const Card = props => {
         </div>
 
         <div id ="cardChartContainer">
-          <Bar
+          <Radar
             data={
               {
-                labels: pokemonData.stats.map(currentStat => currentStat.stat.name),
+                labels: pokemonData.stats.map(currentStat => currentStat.stat.name).concat(["height", "weight"]),
                 datasets: [{ 
-                  data: pokemonData.stats.map(currentStat =>currentStat.base_stat),
-                  backgroundColor: `#BCE0EE`,
+                  data: pokemonData.stats.map(currentStat =>currentStat.base_stat).concat([pokemonData.height, pokemonData.weight]),
+                  backgroundColor: 'rgba(188, 224, 238, 0.4)',
                 }],
             }}
             options={
@@ -92,8 +92,6 @@ const Card = props => {
             }
           />
         </div>
-        
-        <div className="cardProperties">height: {pokemonData.height}, weight: {pokemonData.weight}</div>
         
         <div className = "cardAbilities cardProperties">
             skills: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 

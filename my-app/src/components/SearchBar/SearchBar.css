@@ -9,10 +9,11 @@
 }
 
 .pokemonNameOptionsContainer{
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(252, 252, 252);
 }
 
 .pokemonNameOptions:hover{
+    cursor:pointer;
     background-color: lightcoral;
 }
 
