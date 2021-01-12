@@ -1,9 +1,12 @@
 # Mini Pokedex App
 - A simple Pokedex app that allows the user to query pokemons by their names or ids.
 
-## To run this program
+## To run this program locally
 1. Go to '''./my-app''' and run '''npm install -i''' to install packages
 2. Run '''npm start''' and the project will be running at https://localhost:3000
+
+## Website Link
+ - https://freewebhosting-bda42.web.app/
 
 ## Features
 - [x] Match the pokemon type with the style of the card: red/green, etc.
