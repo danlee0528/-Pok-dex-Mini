@@ -4,7 +4,7 @@ import axios from 'axios';
 
 
 const SearchBar = (props) => {
-  const [userPokemonNameToSearch, setUserPokemonNameToSearch] = useState("")
+  const [pokemonNameUserSearched, setPokemonNameUserSearched] = useState("")
   const [pokemonCount, setPokemonCount] = useState(null)
   const [exsitingPokemonNames, setExistingPokemonNames] = useState(null)
   const [pokemonNameOptions, setPokemonNameOptions] = useState(null)
@@ -36,32 +36,40 @@ const SearchBar = (props) => {
 
   const handleSearchBarSubmit = (event) => {
     event.preventDefault()
-    props.setPokemonToSearch(userPokemonNameToSearch)
+    props.setPokemonToSearch(pokemonNameUserSearched)
+    props.setPokemonDataFromSearchReady(true)
   }
 
   const hanldSearchBarReset = (event) => {
     event.preventDefault()
-    setUserPokemonNameToSearch("")
+    setPokemonNameUserSearched("")
     setPokemonNameOptionClicked(false) // reactivate auto-complete options
     setPokemonNameOptions([])
     props.setPokemonToSearch(props.pokemonNames)
+    props.setPokemonDataFromSearchReady(false)
   }
 
   const handleTextFieldChange = (e) => {
     let userPokemonName = e.target.value
-    if (e.target.value === ""){
+    console.log(userPokemonName)
+    
+    if (userPokemonName === ""){
       setPokemonNameOptionClicked(false)
+      setPokemonNameOptions([])
     }
-    setUserPokemonNameToSearch(userPokemonName)
-    const matchingPokemons = exsitingPokemonNames.filter(name =>  name.substring(0,userPokemonName.length) === userPokemonName)
-    setPokemonNameOptions(matchingPokemons)
+
+    setPokemonNameUserSearched(userPokemonName.toLowerCase())
+    const matchingPokemons = exsitingPokemonNames.filter(name =>  name.substring(0,userPokemonName.length) === userPokemonName.toLowerCase())
+
+    // show options when user enters at least 1 character
+    if (matchingPokemons.length > 0) setPokemonNameOptions(matchingPokemons)
   }
 
   const handlePokemonOptionClick = (e) => {
     let name = e.target.value
-    const pokemonNames = pokemonNameOptions.filter(option => option.slice(0, name.length) === name)
+    const pokemonNames = pokemonNameOptions.filter(option => option.slice(0, name.length) === name.toLowerCase())
     setPokemonNameOptions(pokemonNames)
-    setUserPokemonNameToSearch(pokemonNames)
+    setPokemonNameUserSearched(pokemonNames)
     setPokemonNameOptionClicked(!pokemonNameOptionClicked)
   }
 
@@ -75,7 +83,7 @@ return (
                 id = "searchBarTextField" 
                 placeholder="Enter a pokemon name to search ..." 
                 onChange={handleTextFieldChange}
-                value={userPokemonNameToSearch}
+                value={pokemonNameUserSearched}
               />
               <div className="pokemonNameOptionsContainer">
                 {pokemonNameOptions && !pokemonNameOptionClicked ? 

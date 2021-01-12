@@ -2,7 +2,7 @@ import React from 'react';
 
 const ErrorPage = () => {
     return <div className="errorPageContainer">
-        <strong>Sorry :( we couldn't find the pokemon in our database.</strong>
+        <strong>Sorry, the pokemon was not found in the database. Please enter a valid name.</strong>
     </div>
 }
 

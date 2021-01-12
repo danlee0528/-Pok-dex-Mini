@@ -36,7 +36,7 @@
 .pokemonNameOptionsContainer{
     position: absolute;
     z-index: 100;
-    width: min-content;
+    width: max-content;
     background-color: rgb(184, 184, 184);
 }
 

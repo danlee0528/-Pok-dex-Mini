@@ -34,18 +34,18 @@ const Card = props => {
 
   
   useEffect(()=>{
-    axios(pokemonMonsterUrl)
-      .catch(err => {
-        console.error(err)
-      })
-      .then(res => {
-        const spriteUrls = Object.values(res.data.sprites).slice(0,NUM_OF_DEFAULT_BASIC_SPRITE_IMAGE_SIZE)
-          .map(currentSpriteUrl => currentSpriteUrl)
-          .filter(url => url !== null)
-          .reverse()
-          setSpriteImageUrls(spriteUrls)
-          setPokemonData(res.data)
-      })
+      axios(pokemonMonsterUrl)
+        .catch(err => {
+          console.error(err)
+        })
+        .then(res => {
+          const spriteUrls = Object.values(res.data.sprites).slice(0,NUM_OF_DEFAULT_BASIC_SPRITE_IMAGE_SIZE)
+            .map(currentSpriteUrl => currentSpriteUrl)
+            .filter(url => url !== null)
+            .reverse()
+            setSpriteImageUrls(spriteUrls)
+            setPokemonData(res.data)
+        })
   },[pokemonMonsterUrl])
 
   const handleViewSpriteBtn = () => {
