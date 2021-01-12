@@ -59,7 +59,6 @@ const SearchBar = (props) => {
 
   const handlePokemonOptionClick = (e) => {
     let name = e.target.value
-    // console.log(`Set Search Bar Value to ${name}`)
     const pokemonNames = pokemonNameOptions.filter(option => option.slice(0, name.length) === name)
     setPokemonNameOptions(pokemonNames)
     setUserPokemonNameToSearch(pokemonNames)

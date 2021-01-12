@@ -33,8 +33,19 @@
 - [x] Stage the app on a live url
 - [x] Responsive Design
 
+## Process
+### 1. Ideating Stage
+- Before developing the application, I needed to understand the context of Pokemon at present. The last time I watched & played pokemon takes place in 2000. Therefore, I first examined the structures and data of the Pokemon API. Then, I moved onto creating a mokeup of my application, organize the application by components, and ideated interactions such as event listener, page navigation and so forth.
+
+### 2. Coding Stage
+- While writing the code, I faced two major decisions such as wheter to use React's built-in Fetch API or Axios Library. I chose Axios because fetch doesn't support some browsers, Axios support more parameter options and automatically transform response into JSON. The second major decision was the decision on the location of Axios calls to request data from he Pokemon API. To fulfill the requirement of this project, I had to use multiple endpoints to retrieve necessary data and update states accordingly. Placing these requests in a single component could slow down rendering and even re-render components multiple times. So, I split API calls into different components in a top-down fashion. 
+
+### 3. Refacotring Stage
+- Commnets used for testing were removed. Names of variables including functions and components were reviewed. I tried to identity any repetitive part of the code because such code can be refactored to use a function.
+
+
 ## Possible Improvments
-- If you were to establish connection to a server, consider having a default image for 404 error.
+- If there is a need to establish connection to a server, consider having a default image for 404 error.
     - React prototypes can set default images for any network error.
 - If the project is expected to grow, consider using Redux store to improve performance.
     - Pokemon API contains endpoints whose data are nested that may need additional querying to other endpoints to retrieve information in need.

@@ -8,21 +8,18 @@
 #searchBarForm{
     height: 100%;
     width: 100%;
-    /* border: 1px solid red; */
 }
 
 #searchBarForm > input {
-    /* border: 1px solid greenyellow; */
     width: 300px;
     margin-bottom: 1%;
-    /* height: 10%;*/
     font-size: 1rem; 
 }
 
 .searchBarBtnContainer{
-    /* border: 1px solid blueviolet; */
     width: 300px;
 }
+
 .searchBarBtnContainer > input {
     margin-right: 2%;
     padding: 5px 10px 5px 10px;
@@ -35,13 +32,13 @@
     background-color: rgb(137, 203, 206);
     color: black;
 }
+
 .pokemonNameOptionsContainer{
     position: absolute;
     z-index: 100;
     width: min-content;
     background-color: rgb(184, 184, 184);
 }
-
 
 .pokemonNameOptions:hover{
     display: block;
