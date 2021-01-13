@@ -5,8 +5,13 @@
 1. Go to '''./my-app''' and run '''npm install -i''' to install packages
 2. Run '''npm start''' and the project will be running at https://localhost:3000
 
-## Website Link
- - https://freewebhosting-bda42.web.app/
+## Demo
+ - [WebSite](https://freewebhosting-bda42.web.app/)
+
+### Screenshots
+<img src="./src/assets/pokedex-main.PNG" alt="pokedex-card-inactive"/>
+<img src="./src/assets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
+<img src="./src/assets/pokedex-card-active.PNG" alt="pokedex-card-active"/>
 
 ## Features
 - [x] Match the pokemon type with the style of the card: red/green, etc.
