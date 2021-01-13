@@ -6,17 +6,34 @@
     padding: 10%;
 }
 
-.card Button{
+.pokedexBtnsContinaer {
     margin-top: 4%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.card Button{
+    margin: 2%;
     background-color: white;
     color: black;
     padding: 2%;
-    border: 2px solid rgb(219, 219, 219); /* Green */
+    width: 100px;
+    background: white;
+    border: 2px solid rgb(199, 199, 199); /* Green */
+    border-radius: 50px 50px 50px 50px;  /*top-left rocer, top-right-corner, bottom-right corner, bottom-left corner*/
 }
 
 .card Button:hover{
     background-color: rgb(228, 228, 228);
     color: black;
+}
+
+.card Button:focus{
+    outline:0;
 }
 
 .cardImageContainer{
@@ -51,8 +68,14 @@
 .cardAbilities{
     padding: 3% 0% 3% 0%;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
+    font-weight: bold;
 }
+
+h4{
+    color: rgb(139, 139, 139);
+}
+
 .cardTypes{
     display: grid;
     grid-template-columns: auto;
@@ -77,6 +100,9 @@
     color: white;
 }
 
-.cardChartContainer{
-    max-width: 90%;
+#cardChartContainer{
+    min-height: max-content;
+    /* border: 1px solid red; */
+    padding: 4% 0 4% 0;
 }
+

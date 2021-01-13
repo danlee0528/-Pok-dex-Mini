@@ -11,6 +11,7 @@ const Card = props => {
   const [pokemonData, setPokemonData] = useState(null)
   const [spriteImageUrls, setSpriteImageUrls] = useState([])
   const [viewSprites, setViewSprites] = useState(false);
+  const [viewStats, setViewStats] = useState(false);
   const typeColoursDict = {
     normal: '#A8A77A',
     fire: '#EE8130',
@@ -52,6 +53,10 @@ const Card = props => {
     setViewSprites(!viewSprites)
   }
 
+  const handleViewStatsBtn = () => {
+    setViewStats(!viewStats)
+  }
+
   return (
     pokemonData ? <div>
       <div className = "card">
@@ -66,50 +71,57 @@ const Card = props => {
         </div>
 
         <div className = "cardAbilities cardProperties">
-            skills: <span>{pokemonData.abilities.map((currentAbility,index, arr) => 
+          <h4>SKILLS</h4>
+            <span className="abilities">{pokemonData.abilities.map((currentAbility,index, arr) => 
             index === arr.length-1 ? <span key = {index}>{currentAbility.ability.name}</span>
             :<span key = {index}>{currentAbility.ability.name}, </span>)}
             </span>
         </div>
-
-        <div id ="cardChartContainer">
-          <Radar
-            data={
-              {
-                labels: pokemonData.stats.map(currentStat => currentStat.stat.name).concat(["height", "weight"]),
-                datasets: [{ 
-                  data: pokemonData.stats.map(currentStat =>currentStat.base_stat).concat([pokemonData.height, pokemonData.weight]),
-                  backgroundColor: 'rgba(188, 224, 238, 0.4)',
-                }],
-            }}
-            options={
-              { 
-                title:{
-                  display: false,
-                  text: "Stats",
-                  fontSize: 12
-                },
-                legend:{
-                  display: false,
-                },
-                maintainAspectRatio: false,
-                responsive: true,
-                aspectRatio: 1,
-              }
-            }
-          />
-        </div>
-        
-        <button onClick={handleViewSpriteBtn}>View/Hide Sprites</button>
-        {
-          viewSprites && spriteImageUrls? 
-            <div className = "cardSpriteImagesContainer cardProperties">
-                {spriteImageUrls.map(url => {
-                  return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
-                })}
+        <div className = "pokedexBtnsContinaer">
+          <button onClick={handleViewStatsBtn}>View Stats</button>
+          {
+            viewStats? 
+            <div id ="cardChartContainer">
+              <Radar
+                data={
+                  {
+                    labels: pokemonData.stats.map(currentStat => currentStat.stat.name).concat(["height", "weight"]),
+                    datasets: [{ 
+                      data: pokemonData.stats.map(currentStat =>currentStat.base_stat).concat([pokemonData.height, pokemonData.weight]),
+                      backgroundColor: 'rgba(188, 224, 238, 0.4)',
+                    }],
+                }}
+                options={
+                  { 
+                    title:{
+                      display: false,
+                      text: "Stats",
+                      fontSize: 12
+                    },
+                    legend:{
+                      display: false,
+                    },
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    aspectRatio: 1,
+                  }
+                }
+              />
             </div>
-          :null
-        }
+            :null
+          }
+
+          <button onClick={handleViewSpriteBtn}>ViewSprites</button>
+          {
+            viewSprites && spriteImageUrls? 
+              <div className = "cardSpriteImagesContainer cardProperties">
+                  {spriteImageUrls.map(url => {
+                    return <img className = "cardSpriteImages" key = {url} alt = {url} src={url} />
+                  })}
+              </div>
+            :null
+          }
+        </div>
       </div>
     </div>
     : <SpinningWheel />

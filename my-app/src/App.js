@@ -5,9 +5,10 @@ import SearchBar from './components/SearchBar/SearchBar'
 import axios from 'axios'
 import ErrorPage from './components/ErrorPage/ErrorPage'
 
+const NUM_OF_POKEDEX_TO_DISPLAY = 50
 
 const App = () => {
-  const pokemonRandomMonsterUrl = `https://pokeapi.co/api/v2/pokemon?limit=2`
+  const pokemonRandomMonsterUrl = `https://pokeapi.co/api/v2/pokemon?limit=${NUM_OF_POKEDEX_TO_DISPLAY}`
   const [pokemonNames, setPokemonNames] = useState(null)
   const [pokemonNameToSearch, setPokemonNameToSearch] = useState([])
   const [pokemonNameToSearchFound, setPokemonNameToSearchFound] = useState(false)
