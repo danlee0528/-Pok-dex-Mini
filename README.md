@@ -7,12 +7,12 @@
 
 ## Demo
  - [WebSite](https://freewebhosting-bda42.web.app/)
- 
+
 ### Screenshots
-<img src="./my-app/src/assets/pokedex-main.PNG" alt="pokedex-card-inactive"/>
-<img src="./my-app/src/assets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
-<img src="./my-app/src/assets/pokedex-card-stats-active.PNG" alt="pokedex-card-active"/>
-<img src="./my-app/src/assets/pokedex-card-sprites-active.PNG" alt="pokedex-card-active"/>
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/asssets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main//my-app/src/assets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main//my-app/src/assets/pokedex-card-stats-active.PNG" alt="pokedex-card-active"/>
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main//my-app/src/assets/pokedex-card-sprites-active.PNG" alt="pokedex-card-active"/>
 
 ## Features
 - [x] Match the pokemon type with the style of the card: red/green, etc.
