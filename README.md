@@ -10,7 +10,7 @@
 
 ### Screenshots
 #### MainPage
-<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-main.PNG" alt="pokedex-card-main"/>
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-main.PNG" alt="pokedex-main"/>
 
 #### Pokedex  
 <img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
