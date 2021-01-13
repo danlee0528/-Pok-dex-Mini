@@ -8,11 +8,11 @@
 ## Demo
  - [WebSite](https://freewebhosting-bda42.web.app/)
 
-### Screenshots
-#### MainPage
+## Screenshots
+### MainPage
 <img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-main.PNG" alt="pokedex-main"/>
 
-#### Pokedex  
+### Pokedex  
 <img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
 
 ### Pokedex Stats Button Clicked
