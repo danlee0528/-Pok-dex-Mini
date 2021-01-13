@@ -9,7 +9,6 @@ const SearchBar = (props) => {
   const [pokemonCount, setPokemonCount] = useState(null)
   const [pokemonNameOptions, setPokemonNameOptions] = useState(null)
   const [pokemonNameOptionOpened, setPokemonNameOptionOpened] = useState(false)
-
   const pokemonApiUrl = `https://pokeapi.co/api/v2/pokemon`
   const pokemonNamesUrlWithCount = (count) => { 
     return "https://pokeapi.co/api/v2/pokemon?limit=" + count 
@@ -40,22 +39,18 @@ const SearchBar = (props) => {
     })()
   },[pokemonApiUrl])
 
-  // DONE
+
+  // Handle edge cases such as rattata vs rattata-alola being fetched together with rattata
   const handleSearchBarSubmit = (event) => {
     event.preventDefault()
-    let pokemonName = "";
-
-    // Handle edge cases such as rattata vs rattata-alola being fetched together with rattata
     if (foundMatchingPokemonFromDB(pokemonNameFromTextField)){
-      pokemonName = JSON.parse(JSON.stringify(pokemonNameFromTextField))      
-      setPokemonNameFromTextField(pokemonName)
-      props.setPokemonNameToSearch(pokemonName)
+      setPokemonNameFromTextField(pokemonNameFromTextField)
       props.setPokemonNameToSearchFound(true)
     }else{
-      props.setPokemonNameToSearch("")
       props.setPokemonNameToSearchFound(false)
     }
-
+    
+    props.setPokemonNameToSearch(pokemonNameFromTextField)
     setPokemonNameOptionOpened(true) //hide options
   }
 
@@ -64,7 +59,8 @@ const SearchBar = (props) => {
     setPokemonNameFromTextField("")
     setPokemonNameOptionOpened(true) //reinitialize
     props.setPokemonNameToSearch(props.pokemonNames)
-    props.setPokemonNameToSearchFound(true) 
+    props.setPokemonNameToSearchFound(false) // TEST 
+
   }
 
   const handleTextFieldChange = (e) => {
@@ -81,7 +77,6 @@ const SearchBar = (props) => {
     }
   }
 
-
   // Options only show pokemon names in the database in the first place, just return the selected option (string)
   const handlePokemonOptionClick = (e) => {
     let userPokemonName = e.target.value
@@ -89,7 +84,6 @@ const SearchBar = (props) => {
     setPokemonNameOptions(userPokemonName)
     setPokemonNameOptionOpened(true)
   }
-
 
 return (
   pokemonCount && exsitingPokemonNames && 
