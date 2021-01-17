@@ -5,22 +5,6 @@
 1. Go to ./my-app and run "npm install -i" to install packages
 2. Run "npm start" and the project will be running at https://localhost:3000
 
-## Demo
- - [WebSite](https://freewebhosting-bda42.web.app/)
-
-## Screenshots
-### MainPage
-<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-main.PNG" alt="pokedex-main"/>
-
-### Pokedex  
-<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
-
-### Pokedex Stats Button Clicked
-<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-stats-active.PNG" alt="pokedex-card-stats-active"/>
-
-### Pokedex Sprites Button Clicked
-<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-sprites-active.PNG" alt="pokedex-card-sprites-active"/>
-
 ## Features
 - [x] Match the pokemon type with the style of the card: red/green, etc.
 - [x] Style the pokemon stats
@@ -68,3 +52,20 @@
 - Card component can be futher broken down into micro components if needed.
 - To increase accessibility, convert text units to "rem".
 - If Radar chart looks skewed, consider removing "weight" property from dataset.
+
+## Demo
+ - [WebSite](https://freewebhosting-bda42.web.app/)
+
+## Screenshots
+### MainPage
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-main.PNG" alt="pokedex-main"/>
+
+### Pokedex  
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-inactive.PNG" alt="pokedex-card-inactive"/>
+
+### Pokedex Stats Button Clicked
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-stats-active.PNG" alt="pokedex-card-stats-active"/>
+
+### Pokedex Sprites Button Clicked
+<img src="https://github.com/danlee0528/Pokedex-Mini/blob/main/my-app/src/assets/pokedex-card-sprites-active.PNG" alt="pokedex-card-sprites-active"/>
+
