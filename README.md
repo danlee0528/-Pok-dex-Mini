@@ -16,6 +16,7 @@
 ## Technologies
 - Chart.js
 - React.js
+- Netlify (deployment)
 
 ## Component Trees
 - App
@@ -54,7 +55,7 @@
 - If Radar chart looks skewed, consider removing "weight" property from dataset.
 
 ## Demo
- - [WebSite](https://freewebhosting-bda42.web.app/)
+ - [WebSite](https://pokedexmini.netlify.app/)
 
 ## Screenshots
 ### MainPage
